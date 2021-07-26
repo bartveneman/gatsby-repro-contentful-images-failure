@@ -4,14 +4,24 @@ module.exports = {
     title: "Repro gatsby img failure",
   },
   plugins: [
-    "gatsby-transformer-remark",
+    'gatsby-plugin-sharp',
     {
       resolve: "gatsby-source-filesystem",
       options: {
-        name: "pages",
-        path: "./src/pages/",
+        name: "markdown-content",
+        path: "./src/markdown/",
       },
       __key: "pages",
     },
+    {
+      resolve: "gatsby-transformer-remark",
+      // options: {
+      //   plugins: [
+      //     {
+      //       resolve: 'gatsby-remark-images-contentful'
+      //     }
+      //   ]
+      // }
+    }
   ],
 };

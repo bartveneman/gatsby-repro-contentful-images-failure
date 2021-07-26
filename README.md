@@ -1,54 +1,63 @@
-<p align="center">
-  <a href="https://www.gatsbyjs.com/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter">
-    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby minimal starter
-</h1>
+# Reduced test case for gatsby-remark-images-contentful
 
-## 🚀 Quick start
+The markdown in `./src/markdown/test.md` contains an error, where accidentally an image was used instead of an anchor tag. Now `gatsby-remark-images-contentful` tries to optimize the `.zip` file but fails because the file type is unsupported by Sharp.
 
-1.  **Create a Gatsby site.**
+## The problem
 
-    Use the Gatsby CLI to create a new site, specifying the minimal starter.
+There is no stack trace leading back to the offending piece of markdown or any indication where the error originated from.
 
-    ```shell
-    # create a new Gatsby site using the minimal starter
-    npm init gatsby
-    ```
+```
+❯ npm run develop
 
-2.  **Start developing.**
+> repro-gatsby-img-failure@1.0.0 develop
+> gatsby develop
 
-    Navigate into your new site’s directory and start it up.
+success open and validate gatsby-configs, load plugins - 0.593s
+success onPreInit - 0.026s
+info One or more of your plugins have changed since the last
+time you ran Gatsby. As
+a precaution, we're deleting your site's cache to ensure
+there's no stale data.
+success initialize cache - 0.056s
+success copy gatsby files - 0.073s
+success Compiling Gatsby Functions - 0.264s
+success onPreBootstrap - 0.276s
+success createSchemaCustomization - 0.053s
+success Checking for changed pages - 0.001s
+success source and transform nodes - 0.117s
+success building schema - 0.547s
+success createPages - 0.001s
+success createPagesStatefully - 0.066s
+info Total nodes: 33, SitePage nodes: 4 (use --verbose for
+breakdown)
+success Checking for changed pages - 0.002s
+success update schema - 0.075s
+success write out redirect data - 0.007s
+success onPostBootstrap - 0.003s
+info bootstrap finished - 4.110s
+success onPreExtractQueries - 0.001s
+success extract queries from components - 0.299s
+success write out requires - 0.006s
 
-    ```shell
-    cd my-gatsby-site/
-    npm run develop
-    ```
+ ERROR
 
-3.  **Open the code and start customizing!**
+Input buffer contains unsupported image format
 
-    Your site is now running at http://localhost:8000!
 
-    Edit `src/pages/index.js` to see your site update in real-time!
 
-4.  **Learn more**
+  Error: Input buffer contains unsupported image format
 
-    - [Documentation](https://www.gatsbyjs.com/docs/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+not finished run page queries - 10.025s
 
-    - [Tutorials](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+npm ERR! code 1
+npm ERR! path /Users/bart.veneman/www/sandbox/gatsby-repro-img-failure
+npm ERR! command failed
+npm ERR! command sh -c gatsby develop
 
-    - [Guides](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /Users/bart.veneman/.npm/_logs/2021-07-26T12_47_47_287Z-debug.log
+```
 
-    - [API Reference](https://www.gatsbyjs.com/docs/api-reference/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+## Desired solution
 
-    - [Plugin Library](https://www.gatsbyjs.com/plugins?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [Cheat Sheet](https://www.gatsbyjs.com/docs/cheat-sheet/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-## 🚀 Quick start (Gatsby Cloud)
-
-Deploy this starter with one click on [Gatsby Cloud](https://www.gatsbyjs.com/cloud/):
-
-[<img src="https://www.gatsbyjs.com/deploynow.svg" alt="Deploy to Gatsby Cloud">](https://www.gatsbyjs.com/dashboard/deploynow?url=https://github.com/gatsbyjs/gatsby-starter-minimal)
+A clear stack trace leading back to the markdown or AST containing the troublesome image.

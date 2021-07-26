@@ -15,13 +15,13 @@ module.exports = {
     },
     {
       resolve: "gatsby-transformer-remark",
-      // options: {
-      //   plugins: [
-      //     {
-      //       resolve: 'gatsby-remark-images-contentful'
-      //     }
-      //   ]
-      // }
+      options: {
+        plugins: [
+          {
+            resolve: 'gatsby-remark-images-contentful'
+          }
+        ]
+      }
     }
   ],
 };

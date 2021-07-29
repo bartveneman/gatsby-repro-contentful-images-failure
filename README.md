@@ -1,5 +1,7 @@
 # Reduced test case for gatsby-remark-images-contentful
 
+[__Gatsby issue 32511__](https://github.com/gatsbyjs/gatsby/issues/32511)
+
 The markdown in `./src/markdown/test.md` contains an error, where accidentally an image was used instead of an anchor tag. Now `gatsby-remark-images-contentful` tries to optimize the `.zip` file but fails because the file type is unsupported by Sharp.
 
 ## The problem
